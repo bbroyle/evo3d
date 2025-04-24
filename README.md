@@ -53,7 +53,7 @@ write_stat_to_bfactor(result$selection_df,
 ```
 
 ## Running step-wise (more control)
-# ** more examples of step-wise at end of README ** 
+### more examples of step-wise runs at end of README  
 
 ```r
 library(evopatchr)
