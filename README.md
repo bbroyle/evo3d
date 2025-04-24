@@ -50,7 +50,9 @@ write_stat_to_bfactor(result$selection_df,
 ## Package Structure
 
 R/ – R functions for patch detection, alignment, epitope analysis, and visualization
+
 src/ – C++ code for solvent accessibility (DSSP-style)
+
 inst/extdata/ – Example FASTA and PDB files for reproducible workflows
 
 ## License
