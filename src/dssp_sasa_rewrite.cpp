@@ -1,3 +1,7 @@
+// DSSP-derived logic adapted under BSD 2-Clause License
+// Source: https://github.com/PDB-REDO/dssp
+// Copyright (c) 2020 NKI/AVL, Netherlands Cancer Institute
+
 #include <Rcpp.h>
 #include <cmath>
 #include <vector>
