@@ -1,6 +1,7 @@
 # evopatchr
+<img src="man/figures/evopatchr_hex.png" width="200"/>
 
-**evopatchr** is an R package for structure-aware population genetics, enabling patch-level evolutionary analysis of protein surfaces. It integrates codon-level selection metrics with 3D structural data to identify spatially clustered signals of diversity and selection.
+**evopatchr** is an R package for structure-aware population genetics, enabling patch-level evolutionary analysis of protein surfaces. It integrates selection metrics with 3D structural data to identify spatially clustered signals of diversity and selection.
 
 Designed with applications in immunology, virology, and comparative genomics, `evopatchr` supports multi-chain proteins, multi-model structures, and antibody–antigen complexes.
 
@@ -23,7 +24,7 @@ To install from GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("yourusername/evopatchr")
+devtools::install_github("bbroyle/evopatchr")
 
 # If you want to use the alignment features:
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -84,6 +85,6 @@ licensed under the BSD 2-Clause License. See `inst/LICENSE.note` for details.
 ## Conatct
 
 Brad Broyles
-PhD Candidate, Computational Biology
+PhD Candidate, Computational and Structural Biology,
 Purdue University
 bbroyle@purdue.edu
