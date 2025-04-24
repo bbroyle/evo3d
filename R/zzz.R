@@ -1,3 +1,5 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Note: 'msa' is required for alignment functionality. Install via BiocManager::install('msa')")
+  if (!requireNamespace("msa", quietly = TRUE)) {
+    packageStartupMessage("Optional package 'msa' not found. For alignment features, install it via BiocManager::install('msa')")
+  }
 }
