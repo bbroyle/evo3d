@@ -48,11 +48,12 @@ result <- run_patchr_single(msa_path = msa_path,
 
 write_stat_to_bfactor(result$selection_df,
                       result$pdb_info$pdb,
-                      stat_name = "tajima",
-                      outfile = "example_tajima.pdb")
+                      stat_name = "hap",
+                      outfile = "rh5_hap_div.pdb")
 ```
 
 ## Running step-wise (more control)
+# ** more examples of step-wise at end of README ** 
 
 ```r
 library(evopatchr)
@@ -63,21 +64,23 @@ msa_path <- system.file("extdata", "rh5_pfalc.fasta", package = "evopatchr")
 pdb_path <- system.file("extdata", "rh5_4wat.pdb", package = "evopatchr")
 
 # read in msa #
-msa_info = WRAPPER_msa_to_ref(msa_path = msa_path)
+msa_info <- WRAPPER_msa_to_ref(msa_path = msa_path)
 
 # read in pdb #
-pdb_info = WRAPPER_pdb_to_patch(pdb_path = pdb_path,
+pdb_info <- WRAPPER_pdb_to_patch(pdb_path = pdb_path,
                                 chain = c('A'))
   
 # generate alignment between msa and pdb / and create msa_subsets #
-map_info = WRAPPER_align_msa_pdb(msa_info = msa_info,
+aln_info <- WRAPPER_align_msa_pdb(msa_info = msa_info,
                                  pdb_info = pdb_info, 
                                  chain = 'A', coverage_plot = T)
   
 # calculate selection #
-selection_df = run_pegas_three(map_info$msa_subsets, pdb_info$residue_df)
+selection_df <- run_pegas_three(aln_info$msa_subsets, pdb_info$residue_df)
 
 ```
+
+
 
 ## License
 
@@ -91,3 +94,157 @@ Brad Broyles
 PhD Candidate, Computational and Structural Biology,
 Purdue University
 bbroyle@purdue.edu
+
+## Running multi-chain (heterodimer)
+
+```r
+library(evopatchr)
+
+msa_path1 <- system.file("extdata", "e1_hepc.aln", package = "evopatchr")
+msa_path2 <- system.file("extdata", "e2_hepc.aln", package = "evopatchr")
+pdb_path <- system.file("extdata", "e1e2_8fsj.pdb", package = "evopatchr")
+
+# read in two MSA #
+msa1 <- WRAPPER_msa_to_ref(msa_path = msa_path1)
+msa2 <- WRAPPER_msa_to_ref(msa_path = msa_path2)
+
+# read in pdb #
+pdb_info <- WRAPPER_pdb_to_patch(pdb_path = pdb_path,
+                                chain = c('A', 'E'))
+
+# each chain gets a alignment to msa #
+aln_info1 <- WRAPPER_align_msa_pdb(msa = msa1, 
+                                  pdb_info = pdb_info, 
+                                  chain = 'A')
+
+aln_info2 <- WRAPPER_align_msa_pdb(msa = msa2,
+                                  pdb_info = pdb_info, 
+                                  chain = 'E')
+
+# build cross chain msa subsets #
+msas <- extend_msa(aln_info1$msa_subsets, 
+                  aln_info2$msa_subsets)
+
+# calculate selection #
+selection_df <- run_pegas_three(msas, pdb_info$residue_df)
+
+```
+
+## Running multi-chain (homotrimer)
+
+```r
+library(evopatchr)
+
+msa_path <- system.file("extdata", "spike_sarscov2.fa", package = "evopatchr")
+pdb_path <- system.file("extdata", "spike_7fb0.pdb", package = "evopatchr")
+
+# read in one msa #
+msa1 <- WRAPPER_msa_to_ref(msa_path = msa_path)
+
+# read in pdb ** note distance method set to 'ca' ~ faster (but not required) ** #
+pdb_info <- WRAPPER_pdb_to_patch(pdb_path = pdb_path,
+                                chain = c('A', 'B', 'C'),
+                                distance_method = 'ca')
+
+# each chain gets a alignment to msa #
+aln_info1 <- WRAPPER_align_msa_pdb(msa_info = msa1, 
+                                  pdb_info = pdb_info, 
+                                  chain = 'A')
+
+aln_info2 <- WRAPPER_align_msa_pdb(msa_info = msa1,
+                                  pdb_info = pdb_info, 
+                                  chain = 'B')
+
+aln_info3 <- WRAPPER_align_msa_pdb(msa_info = msa1,
+                                  pdb_info = pdb_info, 
+                                  chain = 'C')
+
+# build cross chain msa subsets #
+msas <- extend_msa(aln_info1$msa_subsets, 
+                  aln_info2$msa_subsets)
+
+msas <- extend_msa(msas,
+                  aln_info3$msa_subsets)
+  
+# calculate selection #
+selection_df <- run_pegas_three(msas, pdb_info$residue_df)
+
+```
+
+## Running multi model (complementary resolved regions in PDB)
+
+```r
+library(evopatchr)
+
+msa_path <- system.file("extdata", "spike_sarscov2.fa", package = "evopatchr")
+pdb_path1 <- system.file("extdata", "spike_7fb0.pdb", package = "evopatchr")
+pdb_path2 <- system.file("extdata", "spike_7fb1.cif", package = "evopatchr")
+
+# read in MSA #
+msa_info <- WRAPPER_msa_to_ref(msa_path = msa_path)
+
+# read in pdb #
+pdb_info1 <- WRAPPER_pdb_to_patch(pdb_path = pdb_path1,
+                                chain = c('A'))
+
+pdb_info2 <- WRAPPER_pdb_to_patch(pdb_path = pdb_path2,
+                                 chain = c('A'))
+
+# each chain gets a alignment to msa #
+aln_info1 <- WRAPPER_align_msa_pdb(msa_info = msa_info,
+                                 pdb_info = pdb_info1, 
+                                 chain = 'A')
+
+aln_info2 <- WRAPPER_align_msa_pdb(msa_info = msa_info,
+                                  pdb_info = pdb_info2, 
+                                  chain = 'A')
+
+# extend capture windows based on complimentary structures #
+merged_nuc_windows <- extend_nuc_windows(aln_info1$nuc_patches, 
+                                        aln_info2$nuc_patches)
+
+# generate msa subsets using combined window information #
+msas <- extract_msa_subsets(msa_info$msa_mat, merged_nuc_windows)
+ 
+# calculate selection ~ dataframe is based on codon position in msa #
+selection_df <- run_pegas_three(msas)
+
+```
+
+## Running selection (including epitope) ** NEEDS WORK **
+
+```r
+library(evopatchr)
+
+msa_path <- system.file("extdata", "rh5_pfalc.fasta", package = "evopatchr")
+pdb_path <- system.file("extdata", "rh5_6rcu.pdb", package = "evopatchr")
+
+# read in MSA #
+msa_info <- WRAPPER_msa_to_ref(msa_path = msa_path)
+
+# read in pdb #
+pdb_info <- WRAPPER_pdb_to_patch(pdb_path = pdb_path, chain = 'A')
+
+# grab epitope information #
+pdb <- .standardize_pdb_input(pdb_path = pdb_path, chain = 'all')
+epitope_info1 <- identify_epitopes(pdb, ag_chain = 'A', h_chain = 'B', l_chain = 'C')
+epitope_info2 <- identify_epitopes(pdb, ag_chain = 'A', h_chain = 'D', l_chain = 'E')
+
+# add to residue_df
+pdb_info$residue_df[nrow(pdb_info$residue_df) + 1,] <- NA
+pdb_info$residue_df[nrow(pdb_info$residue_df), 8] <- 'epi:BC>A'
+pdb_info$residue_df[nrow(pdb_info$residue_df), 9] <- epitope_info1$epitope
+
+pdb_info$residue_df[nrow(pdb_info$residue_df) + 1,] <- NA
+pdb_info$residue_df[nrow(pdb_info$residue_df), 8] <- 'epi:DE>A'
+pdb_info$residue_df[nrow(pdb_info$residue_df), 9] <- epitope_info2$epitope
+
+# generate alignment between msa and pdb / and create msa_subsets #
+aln_info <- WRAPPER_align_msa_pdb(msa_info = msa_info,
+                                 pdb_info = pdb_info, 
+                                 chain = 'A', coverage_plot = T)
+
+# calculate selection #
+selection_df <- run_pegas_three(aln_info$msa_subsets, pdb_info$residue_df)
+
+```
