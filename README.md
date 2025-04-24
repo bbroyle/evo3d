@@ -50,19 +50,11 @@ write_stat_to_bfactor(result$selection_df,
                       outfile = "example_tajima.pdb")
 ```
 
-## Package Structure
-
-R/ – R functions for patch detection, alignment, epitope analysis, and visualization
-
-src/ – C++ code for solvent accessibility (DSSP-style)
-
-inst/extdata/ – Example FASTA and PDB files for reproducible workflows
-
 ## License
 
-This package is released under the MIT License. 
-Portions of the structural accessibility code are adapted from open-source DSSP
- implementations
+This package is released under the MIT License.  
+Portions of the structural accessibility logic are adapted from the [DSSP project](https://github.com/PDB-REDO/dssp),  
+licensed under the BSD 2-Clause License. See `inst/LICENSE.note` for details.
 
 ## Conatct
 
