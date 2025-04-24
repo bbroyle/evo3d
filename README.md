@@ -25,7 +25,10 @@ To install from GitHub:
 # install.packages("devtools")
 devtools::install_github("yourusername/evopatchr")
 
-# install.packages("BiocManager")
+# If you want to use the alignment features:
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
 BiocManager::install("msa")
 ```
 

@@ -133,6 +133,10 @@ align_sequences = function(sequences, generate_plot = T, user_supplied_alignment
   # need to track original gap (from msa)
   # then introduced gaps (from alignment)
   # also track matching positions
+  if (!requireNamespace("msa", quietly = TRUE)) {
+    stop("The 'msa' package is required for alignment. Please install it via BiocManager::install('msa')")
+  }
+  
 
   # use msa::msa() ~ with baked in clustal omega (defualt to GONNET sub matrix)
   aln = msa::msa(sequences, method = 'ClustalOmega', type = 'protein', order = 'input')
