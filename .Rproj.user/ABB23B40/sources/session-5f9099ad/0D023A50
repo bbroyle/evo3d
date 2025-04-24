@@ -1,0 +1,24 @@
+{
+    "id": "0D023A50",
+    "path": "~/3d_stats/evopatchr/src/dssp_sasa_rewrite.cpp",
+    "project_path": "src/dssp_sasa_rewrite.cpp",
+    "type": "cpp",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1745461564993.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1744744815,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1744744815,
+    "read_only": false,
+    "read_only_alternatives": []
+}
