@@ -24,7 +24,7 @@ To install from GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("yourusername/evopatchr")
+devtools::install_github("bbroyle/evopatchr")
 
 # If you want to use the alignment features:
 if (!requireNamespace("BiocManager", quietly = TRUE))
