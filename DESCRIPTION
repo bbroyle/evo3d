@@ -2,10 +2,9 @@ Package: evopatchr
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Brad Broyles
+Maintainer: Brad Broyles <bbroyle@purdue.edu>
+Description: structure-aware population genetics
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -20,3 +19,5 @@ Imports:
     ggrepel,
     ape, 
     pegas
+Suggests:
+    msa
