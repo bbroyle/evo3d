@@ -1,4 +1,5 @@
 # evopatchr
+<img src="man/figures/evopatchr_hex.png" width="200"/>
 
 **evopatchr** is an R package for structure-aware population genetics, enabling patch-level evolutionary analysis of protein surfaces. It integrates codon-level selection metrics with 3D structural data to identify spatially clustered signals of diversity and selection.
 
