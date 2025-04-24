@@ -59,17 +59,20 @@ library(evopatchr)
 
 # single MSA and PDB (or mmCIF) // essentially run_patchr_single() ----
 
+msa_path <- system.file("extdata", "rh5_pfalc.fasta", package = "evopatchr")
+pdb_path <- system.file("extdata", "rh5_4wat.pdb", package = "evopatchr")
+
 # read in msa #
-msa_info = WRAPPER_msa_to_ref(msa_path = 'example_multi_chain/e2_adj.aln')
+msa_info = WRAPPER_msa_to_ref(msa_path = msa_path)
 
 # read in pdb #
-pdb_info = WRAPPER_pdb_to_patch(pdb_path = 'example_multi_chain/e1e2_8fsj.pdb',
-                                chain = c('E'))
+pdb_info = WRAPPER_pdb_to_patch(pdb_path = pdb_path,
+                                chain = c('A'))
   
 # generate alignment between msa and pdb / and create msa_subsets #
 map_info = WRAPPER_align_msa_pdb(msa_info = msa_info,
                                  pdb_info = pdb_info, 
-                                 chain = 'E', coverage_plot = T)
+                                 chain = 'A', coverage_plot = T)
   
 # calculate selection #
 selection_df = run_pegas_three(map_info$msa_subsets, pdb_info$residue_df)
