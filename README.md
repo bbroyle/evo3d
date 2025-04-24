@@ -24,3 +24,44 @@ To install from GitHub:
 ```r
 # install.packages("devtools")
 devtools::install_github("yourusername/evopatchr")
+
+# install.packages("BiocManager")
+BiocManager::install("msa")
+```
+
+## Quick Example
+
+```r
+library(evopatchr)
+
+msa_path <- system.file("extdata", "example.fasta", package = "evopatchr")
+pdb_path <- system.file("extdata", "example.pdb", package = "evopatchr")
+
+result <- run_patchr_single(msa_path = msa_path,
+                             pdb_path = pdb_path,
+                             chain = 'A')
+
+write_stat_to_bfactor(result$selection_df,
+                      result$pdb_info$pdb,
+                      stat_name = "tajima",
+                      outfile = "example_tajima.pdb")
+```
+
+## Package Structure
+
+R/ – R functions for patch detection, alignment, epitope analysis, and visualization
+src/ – C++ code for solvent accessibility (DSSP-style)
+inst/extdata/ – Example FASTA and PDB files for reproducible workflows
+
+## License
+
+This package is released under the MIT License. 
+Portions of the structural accessibility code are adapted from open-source DSSP
+ implementations
+
+## Conatct
+
+Brad Broyles
+PhD Candidate, Computational Biology
+Purdue University
+bbroyle@purdue.edu
