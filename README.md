@@ -26,7 +26,7 @@ To install from GitHub:
 # install.packages("devtools")
 devtools::install_github("bbroyle/evopatchr")
 
-# If you want to use the alignment features:
+# msa and alignment functionalities require 'msa' from Bioconducter
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
