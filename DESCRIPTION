@@ -19,5 +19,4 @@ Imports:
     ggplot2,
     ggrepel,
     ape, 
-    pegas,
-    msa
+    pegas
