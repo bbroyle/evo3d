@@ -13,4 +13,11 @@ RoxygenNote: 7.3.2
 LinkingTo: 
     Rcpp
 Imports: 
-    Rcpp
+    Rcpp,
+    bio3d,
+    seqinr,
+    ggplot2,
+    ggrepel,
+    ape, 
+    pegas,
+    msa
