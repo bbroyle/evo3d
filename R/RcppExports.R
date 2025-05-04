@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 calculateDSSPAccessibility <- function(atoms, residues) {
-    .Call('_evopatchr_calculateDSSPAccessibility', PACKAGE = 'evopatchr', atoms, residues)
+    .Call(`_evopatchr_calculateDSSPAccessibility`, atoms, residues)
 }
 
